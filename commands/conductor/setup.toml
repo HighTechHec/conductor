@@ -339,8 +339,16 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
     -   If (C): Proceed without installation.
 5.  **Installation Action:**
     -   For each selected skill:
-        -   Create directory `.agents/skills/<skill-name>/`.
-        -   Download the content of the skill folder from the `url` specified in `catalog.md` to `.agents/skills/<skill-name>/`.
+        -   **Determine Installation Path:**
+            - If `alwaysRecommend` is true, set the path to `~/.agents/extensions/conductor/skills/<skill-name>/`.
+            - Otherwise, set the path to `.agents/skills/<skill-name>/`.
+        -   Create directory at the determined path.
+        -   **Determine Download Strategy:**
+            - If `party` is '1p':
+                - If `version` is provided, download that specific version.
+                - Otherwise, download the latest copy at the exact `url`.
+            - If `party` is '3p', MUST use the provided `commit_sha` to download the specific vetted commit.
+        -   Download the content of the skill folder from the `url` specified in `catalog.md` (using the determined strategy) to the determined path.
         -   **CRITICAL:** If the URL is a file path, find the parent folder. If it is a Git URL, use `git clone` or `sparse-checkout` to get the folder.
 6.  **Commit State:** Upon successful completion, write to `conductor/setup_state.json`:
     `{"last_successful_step": "2.6_skills"}`
