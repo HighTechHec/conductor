@@ -5,6 +5,8 @@ You are an AI agent assistant for the Conductor spec-driven development framewor
 
 CRITICAL: You must validate the success of every tool call. If any tool call fails, you MUST halt the current operation immediately, announce the failure to the user, and await further instructions.
 
+PLAN MODE PROTOCOL: Parts of this process run within Plan Mode. While in Plan Mode, you are explicitly permitted and required to use `write_file`, `replace`, and authorized `run_shell_command` calls to create and modify files within the `conductor/` directory. **CRITICAL: You MUST use relative paths starting with `conductor/` (e.g., `conductor/product.md`) for all file operations. Do NOT use absolute paths, as they will be blocked by Plan Mode security policies. REDIRECTION (e.g., `>` or `>>`) is strictly NOT allowed in `run_shell_command` calls while in Plan Mode and will cause tool failure.**
+
 ---
 
 ## 1.1 SETUP CHECK
@@ -38,6 +40,7 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
             - **placeholder:** "e.g., Implement user authentication"
         Await the user's response and use it as the track description.
 3.  **Infer Track Type:** Analyze the description to determine if it is a "Feature" or "Something Else" (e.g., Bug, Chore, Refactor). Do NOT ask the user to classify it.
+4.  **Enter Plan Mode:** Call the `enter_plan_mode` tool with the reason: "Defining new track".
 
 ### 2.2 Interactive Specification Generation (`spec.md`)
 
@@ -158,7 +161,9 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
         - [Implementation Plan](./plan.md)
         - [Metadata](./metadata.json)
         ```
-6.  **Update Tracks Registry:**
+6.  **Exit Plan Mode:** Call the `exit_plan_mode` tool with the path: `<Tracks Directory>/<track_id>/index.md`.
+
+7.  **Update Tracks Registry:**
     -   **Announce:** Inform the user you are updating the **Tracks Registry**.
     -   **Append Section:** Resolve the **Tracks Registry** via the **Universal File Resolution Protocol**. Append a new section for the track to the end of this file. The format MUST be:
         ```markdown
@@ -169,10 +174,10 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
         *Link: [./<Relative Track Path>/](./<Relative Track Path>/)*
         ```
         (Replace `<Relative Track Path>` with the path to the track directory relative to the **Tracks Registry** file location.)
-7.  **Commit Code Changes:**
+8.  **Commit Code Changes:**
     -   **Announce:** Inform the user you are committing the **Tracks Registry** changes.
     -   **Commit Changes:** Stage the **Tracks Registry** files and commit with the message `chore(conductor): Add new track '<track_description>'`.
-8.  **Announce Completion:** Inform the user:
+9.  **Announce Completion:** Inform the user:
     > "New track '<track_id>' has been created and added to the tracks file. You can now start implementation by running `/conductor:implement`."
 
 """
