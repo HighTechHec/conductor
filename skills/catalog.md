@@ -60,3 +60,37 @@ Skills focused on setting up, managing, and using various Firebase services.
 - **Detection Signals**:
     - **Dependencies**: `firebase`, `firebase-admin`
     - **Keywords**: `Firebase Hosting`, `Static Hosting`
+
+## DevOps Skills
+Skills for designing, building, and managing CI/CD pipelines and infrastructure on Google Cloud.
+
+### cloud-deploy-pipelines
+- **Description**: Manage the entire lifecycle of Google Cloud Deploy, from designing and creating delivery pipelines to managing releases and debugging failures.
+- **URL**: https://raw.githubusercontent.com/gemini-cli-extensions/devops/main/skills/cloud-deploy-pipelines/
+- **Party**: 1p
+- **Detection Signals**:
+    - **Dependencies**: `skaffold`
+    - **Keywords**: `Cloud Deploy`, `delivery pipeline`, `skaffold.yaml`, `clouddeploy.yaml`
+
+### gcp-cicd-deploy
+- **Description**: Assistant for deploying applications to Google Cloud, supporting Static Sites (GCS), Cloud Run (Buildpacks or Images), and GKE.
+- **URL**: https://raw.githubusercontent.com/gemini-cli-extensions/devops/main/skills/gcp-cicd-deploy/
+- **Party**: 1p
+- **Detection Signals**:
+    - **Dependencies**: `gcloud`
+    - **Keywords**: `Cloud Run`, `GCS`, `Static Site`, `Deployment`, `Google Cloud`
+
+### gcp-cicd-design
+- **Description**: Assistant for designing, building, and managing CI/CD pipelines on Google Cloud, focusing on architectural design and implementation planning.
+- **URL**: https://raw.githubusercontent.com/gemini-cli-extensions/devops/main/skills/gcp-cicd-design/
+- **Party**: 1p
+- **Detection Signals**:
+    - **Keywords**: `CI/CD`, `Pipeline Design`, `Google Cloud`, `Architectural Design`
+
+### gcp-cicd-terraform
+- **Description**: Use Terraform to provision Google Cloud resources (GKE, Cloud Run, Cloud SQL) with standard GCS backend state management and IAM least-privilege.
+- **URL**: https://raw.githubusercontent.com/gemini-cli-extensions/devops/main/skills/gcp-cicd-terraform/
+- **Party**: 1p
+- **Detection Signals**:
+    - **Dependencies**: `terraform`
+    - **Keywords**: `Terraform`, `GCP`, `GCS Backend`, `Infrastructure as Code`, `IaC`
